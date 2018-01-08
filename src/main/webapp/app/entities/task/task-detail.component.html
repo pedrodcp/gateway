@@ -1,0 +1,44 @@
+
+<div *ngIf="task">
+    <h2><span>Task</span> {{task.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span>Action</span></dt>
+        <dd>
+            <span>{{task.action}}</span>
+        </dd>
+        <dt><span>Deadline</span></dt>
+        <dd>
+            <span>{{task.deadline | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span>User</span></dt>
+        <dd>
+            <span>{{task.user}}</span>
+        </dd>
+        <dt><span>Stage</span></dt>
+        <dd>
+            <div *ngIf="task.stage">
+                <a [routerLink]="['/stage', task.stage?.id]">{{task.stage?.title}}</a>
+            </div>
+        </dd>
+        <dt><span>Colaborator</span></dt>
+        <dd>
+            {{task.colaborator?.login}}
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'task/'+ task.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span> Edit</span>
+    </button>
+</div>

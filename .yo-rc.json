@@ -1,7 +1,8 @@
 {
   "generator-jhipster": {
     "promptValues": {
-      "packageName": "com.mycompany.myapp"
+      "packageName": "com.mycompany.myapp",
+      "microservicePath": "../interactions"
     },
     "jhipsterVersion": "4.13.1",
     "baseName": "gateway",

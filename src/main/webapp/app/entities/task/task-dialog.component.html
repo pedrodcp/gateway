@@ -1,0 +1,59 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myTaskLabel">Create or edit a Task</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!task.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="task.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_action">Action</label>
+            <input type="text" class="form-control" name="action" id="field_action"
+                [(ngModel)]="task.action" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_deadline">Deadline</label>
+            <div class="input-group">
+                <input id="field_deadline" type="text" class="form-control" name="deadline" ngbDatepicker  #deadlineDp="ngbDatepicker" [(ngModel)]="task.deadline"
+                />
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-secondary" (click)="deadlineDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_user">User</label>
+            <input type="text" class="form-control" name="user" id="field_user"
+                [(ngModel)]="task.user" />
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" for="field_stage">Stage</label>
+            <select class="form-control" id="field_stage" name="stage" [(ngModel)]="task.stage" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="stageOption.id === task.stage?.id ? task.stage : stageOption" *ngFor="let stageOption of stages; trackBy: trackStageById">{{stageOption.title}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_colaborator">Colaborator</label>
+            <select class="form-control" id="field_colaborator" name="colaborator" [(ngModel)]="task.colaborator" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="userOption.id === task.colaborator?.id ? task.colaborator : userOption" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.login}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>
